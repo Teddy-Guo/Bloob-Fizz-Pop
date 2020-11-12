@@ -19,14 +19,14 @@ function setup() {
   yellowButton = createButton("Fizz");
   yellowButton.style('background-color', yellow);
   yellowButton.position(380, 730);
-  yellowButton.mousePressed(createYellowBubble);
+  yellowButton.mousePressed(createYellowBubble); // Creates yellow bubble
 
   //create Bloop button
   let blue = color(79, 125, 235);
   blueButton = createButton("Bloop");
   blueButton.style('background-color', blue);
   blueButton.position(135, 730);
-  blueButton.mousePressed(createBlueBubble);
+  blueButton.mousePressed(createBlueBubble); // Creates blue bubble
 
   //create Pop button
   let red = color(245, 75, 233);
@@ -41,6 +41,7 @@ function setup() {
       bubbles.push(newBubble);
   });
 
+  //When bubble is clicked, it tells server, which sends message to splice
   socket.on('clickedInside', function(obj){
       const {i} = obj;
       bubbles.splice(i, 1);
@@ -171,6 +172,7 @@ function createYellowBubble() {
         y : 660 + random(-15, 15),
         diameter : random(20, 30),
         color : 'yellow' };
+    // Sends new bubble data to server to share with others
     socket.emit('newBubbleCreated', newBubble);
 }
 
